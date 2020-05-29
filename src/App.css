@@ -83,7 +83,7 @@ p{
   padding-left: 4px;
   margin-left: -5px;
   padding-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .message > p{
@@ -98,10 +98,12 @@ p{
   max-width: 300px;
   min-width: 50px;
   overflow: hidden;
-  border-radius: 0px 10px 0px 10px;
+  border-radius: 6px;
   padding-left: 6px;
   padding-top: 5px;
   margin-left: 500px;
+
+  margin-bottom: 8px;
   
 }
 
@@ -128,9 +130,11 @@ p{
   margin-top: 5px;
 }
 .mhs{
-  min-height: 450px;
-  max-height: 500px;
+  min-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
+
+  transition: scroll 6s;
 }
 
 .mhs::-webkit-scrollbar {

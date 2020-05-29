@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 
 import { Form, Button, Row} from 'react-bootstrap';
 import { FiSend, FiTrash2, FiFrown } from "react-icons/fi";
+
 import axios from 'axios';
-//import Picker from 'emoji-picker-react';
+
 
 export default function SendMessage(props) {
 
@@ -53,6 +54,7 @@ export default function SendMessage(props) {
 
             <Form.Label column sm="8" className="p-0">
                 <Form.Control size="sm"
+                    
                     type="text" placeholder="Comment something"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)} 

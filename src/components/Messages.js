@@ -1,15 +1,26 @@
-import React , {useState , useEffect } from 'react';
+import React , {useState , useEffect, useRef } from 'react';
 
 import { Media } from 'react-bootstrap';
+
 import axios from 'axios';
 
 import moment from 'moment';
 
+//soporte para algunos emojis
 import { emojify } from 'react-emojione';
 
 
 export default function Messages(props) {
+  
+  const scrollDiv = useRef(null);
 
+
+  const scrollToBottom = () => {
+
+    scrollDiv.current.scrollIntoView({ behavior: "smooth"});
+  } 
+
+  useEffect(scrollToBottom , [props.messages]);
 
 
   return (
@@ -33,7 +44,7 @@ export default function Messages(props) {
               <Media as="li" key={i} className="mb-2">
               
                 <Media.Body>
-                   <span className="username"> -- { message.userId.username } --</span>
+                   <span className="username"> <em>{ message.userId.username } </em></span>
                   <div className="message" >
                     <p >{ emojify( message.message , {output: 'unicode'})}</p>
                     <div className="time"> {moment(message.createdAt ).format('HH:mm:a')}</div>
@@ -54,10 +65,11 @@ export default function Messages(props) {
         })
       }
 
-     
-
     </ul>
+
   }
+
+   <div ref={scrollDiv}></div>
     </>
   );
 }
