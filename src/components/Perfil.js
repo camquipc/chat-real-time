@@ -10,7 +10,7 @@ export default function Perfil(props) {
         <img width={44} height={44} className="mr-3" src={props.user.avatar}/>
         <Media.Body>
             <h6 className="mt-3" style={{textTransform: "capitalize"}}>{props.user.username}</h6>
-            <spam className="logout" onClick={() => props.logout()} title="Logout"> <FiLogIn /> </spam>
+            <div className="logout" onClick={() => props.logout()} title="Logout"> <FiLogIn /> </div>
         </Media.Body>
     </Media>
   );

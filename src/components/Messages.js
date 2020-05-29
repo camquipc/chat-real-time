@@ -21,7 +21,6 @@ export default function Messages(props) {
 
       { 
   
-
         props.messages.filter( m => moment(m.createdAt).format('D') === moment().format('D')).map((message, i) => {
            let  id = message.userId._id;
           return (
@@ -35,7 +34,7 @@ export default function Messages(props) {
                    <span className="username"> -- { message.userId.username } --</span>
                   <div className="message" >
                     <p > {message.message} </p>
-                    <span className="time"> {moment(message.createdAt ).format('HH:mm:a')}</span>
+                    <div className="time"> {moment(message.createdAt ).format('HH:mm:a')}</div>
                   </div>
                 </Media.Body>
               </Media>
@@ -44,7 +43,7 @@ export default function Messages(props) {
               <Media.Body>
                 <div className="message_user_id" >
                 <p > {message.message} </p>
-                <span className="time"> {moment(message.createdAt ).format('HH:mm:a')}</span>
+                <div className="time"> {moment(message.createdAt ).format('HH:mm:a')}</div>
                 </div>
               </Media.Body>
             </Media> 

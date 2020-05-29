@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link,   useHistory } from 'react-router-dom';
+
+
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+
 
 import axios from 'axios';
 
+import { BarLoader } from 'react-spinners';
 
-export default function Login() {
+
+
+export default function Login(props) {
 
   const history = useHistory();
   
@@ -15,18 +21,24 @@ export default function Login() {
 
   const [isLongin, setisLongin] = useState(false);
 
+  const [ loader , setLoader ] = useState(false);
+
   const login = async (e) => {
 
     e.preventDefault();
   
     //connect to api 
+
+     setLoader(true);
    
     try {
     
-      const getLogin = await axios.post('https://chatrealtimeapi.herokuapp.com/api/login', {
+      const getLogin = await axios.post(`${props.url}/api/login`, {
           "username" : user,
           "password" : password
         });
+
+      setLoader(false);
 
       if(getLogin.status === 200) {
         //creamos las session localstore
@@ -38,6 +50,7 @@ export default function Login() {
         online(_id);
 
         localStorage.setItem('token', token);
+        
         localStorage.setItem('user_id', _id);
 
         //setisLongin(true);
@@ -54,7 +67,7 @@ export default function Login() {
   const online = async (_id) => {
 
   
-    const getLogin = await axios.put('https://chatrealtimeapi.herokuapp.com/api/user/'+_id);
+    return await axios.put(`${props.url}/api/user/${_id}`,{ online: true});
      
   }
 
@@ -69,7 +82,15 @@ export default function Login() {
 
           <Col md={{ span: 3, offset: 4 }}>
 
-            <h5>Login in Chat</h5>
+            <h5 style={{textAlign:"center"}}>Login in Chat</h5>
+
+
+
+            <div style={{width: '100%'}} className="mb-3">
+             <BarLoader sizeUnit={"px"} size={20} width={255} color={'#61dafb'}  loading={loader} /> 
+            </div>
+
+
 
             <Form onSubmit={(e) => login(e)}>
 
@@ -90,11 +111,11 @@ export default function Login() {
               <Button variant="outline-dark" size="sm" type="submit" block className="outline-dark">
                 Login
               </Button>
-
-               <Button variant="outline-dark" size="sm" block >
-               <Link to="/register" className="link" 
-              style={{marginTop:'10px', fontSize:'14px', textAlign:"center", color:"#fff"}}>Sign in </Link>
-              </Button>
+               
+               <p style={{marginTop:'10px', fontSize:'14px', textAlign:"center", color:"#fff"}}>
+                  Don't have an account?  <Link to="/register" className="link" >Create One</Link>
+              </p>
+               
               
             </Form>
           </Col>

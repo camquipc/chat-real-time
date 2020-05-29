@@ -8,8 +8,10 @@ import moment from 'moment';
 
 import axios from 'axios';
 
+import { BarLoader } from 'react-spinners';
 
-function Register() {
+
+function Register(props) {
 
   const [user, setUser] = useState(null);
 
@@ -17,19 +19,27 @@ function Register() {
 
   const history = useHistory();
 
+  const [ loader , setLoader ] = useState(false);
+
   const singup = async (e) => {
 
     e.preventDefault();
+
+    setLoader(true);
   
-    axios.post('https://chatrealtimeapi.herokuapp.com/api/singup', {
-        username : user,
-          password : password,
-          avatar:`http://gravatar.com/avatar/${moment().unix()}?d=identicon`
+    axios.post(`${props.url}/api/singup`, {
+          username : user,
+          password : password
+
         }).then(res => {
           if(res.status === 201) {
-        
+            
+            setLoader(false);
             history.push("/");
    
+          }else{
+
+            console.log('ERROR');
           }
         })
 
@@ -39,10 +49,17 @@ function Register() {
   return (
     <div className="App-header">
       <Container>
+
         <Row>
+
           <Col md={{ span: 3, offset: 4 }}>
             
-            <h5>Register in Chat</h5>
+            <h5 style={{textAlign:"center"}}>Register in Chat</h5>
+
+
+            <div style={{width: '100%'}} className="mb-3">
+             <BarLoader sizeUnit={"px"} size={20} width={255} color={'#61dafb'}  loading={loader} /> 
+            </div>
 
             <Form onSubmit={(e) => singup(e)}>
               <Form.Group>
@@ -63,10 +80,10 @@ function Register() {
                Register
               </Button>
 
-               <Button variant="outline-dark" size="sm" block >
-               <Link to="/" className="link" 
-              style={{marginTop:'10px', fontSize:'14px', textAlign:"center", color:"#fff"}}>Login</Link>
-              </Button>
+              <p style={{marginTop:'10px', fontSize:'14px', textAlign:"center", color:"#fff"}}>
+                  Alredy have on account <Link to="/" className="link">Login</Link>
+              </p>
+          
             </Form>
           </Col>
         </Row>

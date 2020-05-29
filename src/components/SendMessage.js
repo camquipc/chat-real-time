@@ -15,7 +15,7 @@ export default function SendMessage(props) {
 
         try {
     
-           let mjs = await axios.post('https://chatrealtimeapi.herokuapp.com/api/message', {
+           let mjs = await axios.post(`${props.url}/api/message`, {
                 "message": message,
                 "userId": localStorage.getItem('user_id')
             },
@@ -70,14 +70,3 @@ export default function SendMessage(props) {
     );
 }
 
-
-/*
-
-
-                <Button variant="outline-light" size="sm" 
-                onClick={ () => setMessage('')}
-                className="outline-light mr-2" style={{ marginTop: '-6px' }}>
-                    <FiTrash2 />
-                </Button>
-
-*/

@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 
 import axios from 'axios';
-//import url from '../url_api';
+
 
 import socketIOClient from "socket.io-client";
 
@@ -22,37 +22,36 @@ import Perfil from './Perfil';
 
 
 
-export default function Chat() {
+export default function Chat(props) {
 
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [ user, setUser] = useState([]);
   const [messages , setMessages] = useState([]);
 
+
+  //solucion para axios 
+
+  const signal = axios.CancelToken.source();
+
   useEffect(() => {
-
-    axios.get('https://chatrealtimeapi.herokuapp.com/api/users', {headers: {
-       Authorization: `Bearer ${localStorage.getItem('token')}`
-     }})
-      .then(response => {
-        console.log(response.data)
-        setUsers(response.data)
-      })
-      .catch(error => console.log(error));
-
-
-
+ 
+      getUsersConnect();
       getUserConnect(); 
       getMessages();
+
+      return () => signal;
 
   }, []);
 
   
   const logout = () => {
     
-    const socket = socketIOClient(`https://chatrealtimeapi.herokuapp.com`);
+    const socket = socketIOClient(`${props.url}`);
 
     socket.disconnect();
+
+    userDisconnect();
     
     localStorage.removeItem('user_id');
 
@@ -64,26 +63,54 @@ export default function Chat() {
 
 
   const getUserConnect = async () => {
-    let u = await axios.get('https://chatrealtimeapi.herokuapp.com/api/user/'+ localStorage.getItem('user_id'),{
+
+    let user = await axios.get(`${props.url}/api/user/${localStorage.getItem('user_id')}`,{
       headers: {
        Authorization: `Bearer ${localStorage.getItem('token')}`
      }}
     );
 
-    setUser(u.data);
+    setUser(user.data);
+    
+  }
+
+
+  const userDisconnect = async () => {
+
+    return await axios.put(`${props.url}/api/user/${localStorage.getItem('user_id')}`,
+
+      {
+         online: false
+
+        }
+    );
+
+  }
+
+
+
+  const getUsersConnect = () => {
+    const socket = socketIOClient(`${props.url}`);
+
+    socket.on('users_' , data => {
+
+      let { users } = data;
+
+      setUsers(users);
+          
+    });
+
   }
 
 
   const getMessages = () => {
 
-    const socket = socketIOClient(`https://chatrealtimeapi.herokuapp.com`);
-
+    const socket = socketIOClient(`${props.url}`);
 
     socket.on('messages_' , data => {
 
       let { messages } = data;
 
-      
       setMessages(messages);
           
     });
@@ -94,7 +121,7 @@ export default function Chat() {
     <>
 
       <div className="App-header">
-        <h5 className="App">------- Chat RealTime ------- </h5>
+        <h5 className="App">{props.name}</h5>
 
 
         <Container >
@@ -113,7 +140,7 @@ export default function Chat() {
 
                   </Col>
                   <Col sm={8} className="pt-4 ">
-                    <SendMessage getMessages={ getMessages }/>
+                    <SendMessage getMessages={ getMessages }  url={props.url}/>
                   </Col>
                 </Row>
               </Container>
