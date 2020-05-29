@@ -5,6 +5,8 @@ import axios from 'axios';
 
 import moment from 'moment';
 
+import { emojify } from 'react-emojione';
+
 
 export default function Messages(props) {
 
@@ -33,7 +35,7 @@ export default function Messages(props) {
                 <Media.Body>
                    <span className="username"> -- { message.userId.username } --</span>
                   <div className="message" >
-                    <p > {message.message} </p>
+                    <p >{ emojify( message.message , {output: 'unicode'})}</p>
                     <div className="time"> {moment(message.createdAt ).format('HH:mm:a')}</div>
                   </div>
                 </Media.Body>
@@ -42,7 +44,7 @@ export default function Messages(props) {
               <Media as="li" className="mb-2 " key={i} > 
               <Media.Body>
                 <div className="message_user_id" >
-                <p > {message.message} </p>
+                <p > { emojify(message.message ,  {output: 'unicode'})} </p>
                 <div className="time"> {moment(message.createdAt ).format('HH:mm:a')}</div>
                 </div>
               </Media.Body>
