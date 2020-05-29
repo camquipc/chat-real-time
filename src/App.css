@@ -1,6 +1,9 @@
 .App {
   text-align: center;
+  line-height: 3;
 }
+
+
 
 .App-logo {
   height: 40vmin;
@@ -16,6 +19,7 @@
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,3 +40,157 @@
     transform: rotate(360deg);
   }
 }
+
+.online{
+  font-size: 10px;
+  margin-top: -10px;
+}
+
+h6{
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+
+.media{
+  margin-bottom: 3px;
+}
+
+.media > img{
+  border-radius: 50%;
+}
+
+p{
+  font-size: 14px;
+}
+
+.user_list{
+  border-right: 1px solid #61dafb;
+}
+
+
+.outline-dark{
+  border: 1px solid #61dafb;
+  color: #61dafb;
+}
+
+.message{
+  background: #ebf1f3;
+  color: #282c34;
+  line-height: 1;
+  max-width: 300px;
+  overflow: hidden;
+  border-radius: 0px 10px 10px 10px;
+  padding-left: 4px;
+  margin-left: -5px;
+  padding-top: 5px;
+  margin-bottom: 5px;
+}
+
+.message > p{
+  margin-bottom: 2px;
+}
+
+.message_user_id{
+ 
+  background: rgba(255,255,255, .3);
+  color: #fff;
+  line-height: 1;
+  max-width: 300px;
+  min-width: 50px;
+  overflow: hidden;
+  border-radius: 0px 10px 0px 10px;
+  padding-left: 6px;
+  padding-top: 5px;
+  margin-left: 500px;
+  
+}
+
+.message_user_id > p{
+  margin-bottom: 3px;
+  padding-right: 10px;
+}
+
+.message_user_id > .time{
+  float: right;
+  font-size: 10px;
+  color: #fff;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top: 3px;
+}
+
+.time{
+  float: right;
+  font-size: 10px;
+  color: #000c0f;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.mhs{
+  min-height: 450px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.mhs::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+.mhs::-webkit-scrollbar-thumb {
+  background: rgb(17, 16, 16);
+  border-radius: 4px;
+}
+
+.mhs::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+.mhs::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+ /* Estilos track de scroll */
+.mhs::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+.mhs::-webkit-scrollbar-track:hover, 
+.mhs::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+
+
+.username{
+  font-size: 12px;
+  color: #fff;
+  margin-bottom: 9px;
+  text-transform: capitalize;
+}
+
+.logout{
+  cursor: pointer;
+  position: absolute;
+  right: 14px;
+  top: 25px;
+  font-size: 18px;
+}
+
+
+.online{
+     width: 10px;
+     height: 10px;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     background: #5cb85c;
+     position: absolute;
+     right: 5px;
+     top: 14px;
+}
+
